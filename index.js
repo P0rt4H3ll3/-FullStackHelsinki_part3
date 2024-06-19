@@ -9,6 +9,10 @@ const generateID = () => {
   return maxId + 1;
 };
 
+const isDuplicate = (newPerson) =>
+  !!persons.find((person) => person.name === newPerson.name);
+//converting the .find result into a boolean using !!
+//same as if using Boolean(persons.find((person) => person.name === newPerson.name))
 let persons = [
   {
     id: 1,
@@ -65,19 +69,25 @@ app.delete("/api/persons/:id", (request, response) => {
 app.post("/api/persons", (request, response) => {
   const body = request.body;
 
-  if (!body.name && !body.phone) {
+  if (!body.name || !body.phone) {
     return response.status(400).json({
       error: "name and phone missing",
     });
   }
 
-  const person = {
+  const newPerson = {
     name: body.name,
     phone: body.phone,
     id: generateID(),
   };
-  persons = persons.concat(person);
-  response.json(person);
+  if (isDuplicate(newPerson)) {
+    return response.status(400).json({
+      error: "name must be unique",
+    });
+  } else {
+    persons = persons.concat(newPerson);
+    response.json(newPerson);
+  }
 });
 
 const PORT = 3001;
