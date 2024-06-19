@@ -42,3 +42,14 @@ app.get("/info", (request, response) => {
     <p>    
     `);
 });
+
+app.get("/api/persons/:id", (request, response) => {
+  //params shows what the :id has
+  const id = Number(request.params.id);
+  const person = persons.find((person) => person.id === id);
+  if (person) {
+    response.json(person);
+  } else {
+    response.status(404).end();
+  }
+});
