@@ -4,7 +4,9 @@
   "description": "this is part3 of the hellsinki open stack course _ with designated repo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -14,5 +16,8 @@
     "part3"
   ],
   "author": "Phillip Radon",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
