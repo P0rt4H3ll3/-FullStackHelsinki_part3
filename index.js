@@ -1,7 +1,30 @@
 const express = require("express");
+const morgan = require("morgan"); //middleware
 const app = express();
 
-app.use(express.json()); // without would the body prop undefined.
+//express.json(): Parses incoming requests with JSON payloads. This must be used before the request logger to ensure req.body is populated.
+
+app.use(express.json());
+
+// Request logger middleware
+
+//Global Middleware: Middleware that you want to run for every request should be added using app.use() before defining your routes.
+
+//
+/*
+const requestLogger = (req, res, next) => {
+  console.log("Method:", req.method);
+  console.log("Path:  ", req.path);
+  console.log("Body:  ", req.body);
+  console.log("---");
+  next();
+};
+app.use(requestLogger);
+*/
+
+app.use(morgan("tiny")); //:method :url :status :res[content-length] - :response-time ms
+
+// Functions
 
 const generateID = () => {
   const maxId =
@@ -13,6 +36,8 @@ const isDuplicate = (newPerson) =>
   !!persons.find((person) => person.name === newPerson.name);
 //converting the .find result into a boolean using !!
 //same as if using Boolean(persons.find((person) => person.name === newPerson.name))
+
+// Hardcoded phone book
 let persons = [
   {
     id: 1,
@@ -35,6 +60,8 @@ let persons = [
     number: "39-23-6423122",
   },
 ];
+
+// defining routes
 
 app.get("/api/persons", (request, response) => {
   response.json(persons);
@@ -90,6 +117,16 @@ app.post("/api/persons", (request, response) => {
   }
 });
 
+// Middleware for handling unknown endpoints
+
+//Error-handling Middleware: Middleware for handling errors should be defined after your routes.
+
+const unknownEndpoint = (req, res) => {
+  res.status(404).send({ error: "unknown endpoint" });
+};
+app.use(unknownEndpoint);
+
+//start the server
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
