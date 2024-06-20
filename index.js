@@ -11,18 +11,16 @@ app.use(express.json());
 //Global Middleware: Middleware that you want to run for every request should be added using app.use() before defining your routes.
 
 //
-/*
-const requestLogger = (req, res, next) => {
-  console.log("Method:", req.method);
-  console.log("Path:  ", req.path);
-  console.log("Body:  ", req.body);
-  console.log("---");
-  next();
-};
-app.use(requestLogger);
-*/
+//costomizing the morgan logging middleware using morgan token to define that we want die data send in post requests (beware of legal requirments in Real Apps.)
+morgan.token("postData", function getPostData(req) {
+  return JSON.stringify(req.body);
+});
 
-app.use(morgan("tiny")); //:method :url :status :res[content-length] - :response-time ms
+app.use(
+  morgan(
+    ":method :url :status :res[content-length] - :response-time ms :postData"
+  )
+);
 
 // Functions
 
