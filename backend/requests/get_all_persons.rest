@@ -13,5 +13,5 @@ content-type: application/json
 
 {
     "name": "phil",
-    "phone": "123456578"
+    "number": "123456578" // has to be number not phone
 }

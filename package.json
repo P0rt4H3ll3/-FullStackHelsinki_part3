@@ -1,24 +1,5 @@
 {
-  "name": "fullstackopen_part-3",
-  "version": "1.0.0",
-  "description": "this is part3 of the hellsinki open stack course _ with designated repo",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "FullStackHelsinki_part3"
-  },
-  "keywords": [
-    "part3"
-  ],
-  "author": "Phillip Radon",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2",
-    "morgan": "^1.10.0"
+    "cors": "^2.8.5"
   }
 }

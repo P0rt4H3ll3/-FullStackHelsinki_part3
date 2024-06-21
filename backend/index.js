@@ -1,9 +1,11 @@
 const express = require("express");
 const morgan = require("morgan"); //middleware
+const cors = require("cors"); // with cors no cross origin error
 const app = express();
 
 //express.json(): Parses incoming requests with JSON payloads. This must be used before the request logger to ensure req.body is populated.
-
+app.use(cors());
+app.use(express.static("dist")); // to make express show static content (dist directory from frontend npm run build)
 app.use(express.json());
 
 // Request logger middleware
@@ -94,7 +96,8 @@ app.delete("/api/persons/:id", (request, response) => {
 app.post("/api/persons", (request, response) => {
   const body = request.body;
 
-  if (!body.name || !body.phone) {
+  if (!body.name || !body.number) {
+    // has to be number not phone
     return response.status(400).json({
       error: "name and phone missing",
     });
@@ -102,7 +105,7 @@ app.post("/api/persons", (request, response) => {
 
   const newPerson = {
     name: body.name,
-    phone: body.phone,
+    number: body.number,
     id: generateID(),
   };
   if (isDuplicate(newPerson)) {
@@ -125,6 +128,14 @@ const unknownEndpoint = (req, res) => {
 app.use(unknownEndpoint);
 
 //start the server
+//we want to depoly on the internet so this has to change \
+/*
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
+*/
+// change to :
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
