@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for backend-falling-shape-262 on 2024-06-21T19:43:32+02:00
+# fly.toml app configuration file generated for backend-quiet-morning-6134 on 2024-06-22T16:27:20+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'backend-falling-shape-262'
+app = 'backend-quiet-morning-6134'
 primary_region = 'ewr'
 
 [build]

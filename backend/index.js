@@ -89,8 +89,12 @@ app.get("/api/persons/:id", (request, response) => {
 
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
+  console.log(
+    "this is inside index.js app.delete this are the request.params.id : ",
+    request.params.id
+  );
   persons = persons.filter((person) => person.id !== id);
-  response.status(204).end;
+  response.status(204).end();
 });
 
 app.post("/api/persons", (request, response) => {

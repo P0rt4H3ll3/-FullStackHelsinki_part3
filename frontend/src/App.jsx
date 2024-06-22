@@ -72,10 +72,6 @@ const App = () => {
     updateService
       .create(dataObject)
       .then((returnedPerson) => {
-        console.log(
-          "this is App ceatingData, after create request returnedPerson: ",
-          returnedPerson
-        );
         setPersons(persons.concat(returnedPerson)); //setPerson([...persons, returnedPerson]) spread operator also for new Array
         resetTextField();
         setSuccessMessage(`Added ${returnedPerson.name}`);
@@ -92,9 +88,13 @@ const App = () => {
     if (window.confirm(`Delete ${person.name} ?`)) {
       updateService
         .deleteEntry(person.id) //need the id to delete the right entry
-        .then(() => {
+        .then((deletedPerson) => {
           // update function for state persons, find all persons without the delete ID and update the Persons array with them
           setPersons(persons.filter((n) => n.id !== person.id));
+          setErrorMessage(`${person.name} was deleted`);
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
         })
         .catch((error) => {
           setErrorMessage(
