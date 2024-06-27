@@ -73,9 +73,11 @@ app.get("/info", (request, response) => {
 
 app.get("/api/persons/:id", (request, response) => {
   //params shows what the :id has
-  Person.findById(request.params.id).then((person) => {
-    response.json(person);
-  });
+  Person.findById(request.params.id)
+    .then((person) => {
+      response.json(person);
+    })
+    .catch((error) => next(error));
 });
 
 app.delete("/api/persons/:id", (request, response) => {
