@@ -109,6 +109,21 @@ app.post("/api/persons", (request, response) => {
   //   });
 });
 
+app.put("/api/persons/:id", (request, response, next) => {
+  const body = request.body;
+
+  const newPerson = {
+    name: body.name,
+    number: body.number,
+  };
+
+  Person.findByIdAndUpdate(request.params.id, newPerson, { new: true })
+    .then((updatedPerson) => {
+      response.json(updatedPerson);
+    })
+    .catch((error) => next(error));
+});
+
 // Middleware for handling unknown endpoints
 
 //Error-handling Middleware: Middleware for handling errors should be defined after your routes.
