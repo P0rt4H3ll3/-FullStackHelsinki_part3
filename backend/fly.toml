@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for backend-silent-frog-3082 on 2024-06-22T18:12:29+02:00
+# fly.toml app configuration file generated for phonebook-phil-for-openstackhelsinki on 2024-06-27T22:20:31+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'backend-silent-frog-3082'
+app = 'phonebook-phil-for-openstackhelsinki'
 primary_region = 'ewr'
 
 [build]
