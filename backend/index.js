@@ -71,7 +71,7 @@ app.get("/info", (request, response) => {
   });
 });
 
-app.get("/api/persons/:id", (request, response) => {
+app.get("/api/persons/:id", (request, response, next) => {
   //params shows what the :id has
   Person.findById(request.params.id)
     .then((person) => {
@@ -80,7 +80,7 @@ app.get("/api/persons/:id", (request, response) => {
     .catch((error) => next(error));
 });
 
-app.delete("/api/persons/:id", (request, response) => {
+app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
     .then((result) => {
       response.status(204).end();
@@ -122,7 +122,15 @@ app.put("/api/persons/:id", (request, response, next) => {
     number: body.number,
   };
 
-  Person.findByIdAndUpdate(request.params.id, newPerson, { new: true })
+  Person.findByIdAndUpdate(request.params.id, newPerson, {
+    new: true,
+    runValidators: true,
+    context: "query",
+  })
+    //new: true returns the updated document instead of the original document prior to the update.
+    //runValidators: true ensures that the update operation enforces the schema's validation rules
+    //context: 'query' sets the validation context to 'query' to properly validate fields during update operations.
+
     .then((updatedPerson) => {
       response.json(updatedPerson);
     })
