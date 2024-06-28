@@ -11,8 +11,8 @@
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix"
+    "lint": "npx eslint .",
+    "lint-fix": "npx eslint . --fix"
   },
   "repository": {
     "type": "git",
